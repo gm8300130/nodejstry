@@ -122,7 +122,7 @@ function start(route, handle) {
 
 exports.start = start;
 */
-
+/*
 //用return方式，當未來有請求處理程序需要進行Non-Blocking的操作的時候，我們的應用就 "掛" 了。
 var http = require("http");
 var url = require("url");
@@ -136,6 +136,25 @@ function start(route, handle) {
     var content = route(handle, pathname)
     response.write(content);
     response.end();
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
+}
+
+exports.start = start;
+*/
+
+//採用將伺服器 "傳遞" 給內容的方式。 從實踐角度來說，就是將response物件（從伺服器的回呼(callback)函數onRequest()取得）透過請求路由傳遞給請求處理程序
+var http = require("http");
+var url = require("url");
+
+function start(route, handle) {
+  function onRequest(request, response) {
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
+
+    route(handle, pathname, response);
   }
 
   http.createServer(onRequest).listen(8888);

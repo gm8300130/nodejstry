@@ -43,7 +43,7 @@ function start() {
   console.log("Request handler 'start' was called.");
   var content = "empty";
 
-  exec("ls -lah", function (error, stdout, stderr) {
+  exec("find /", function (error, stdout, stderr) {
     content = stdout;
   });
 
