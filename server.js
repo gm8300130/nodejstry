@@ -144,7 +144,7 @@ function start(route, handle) {
 
 exports.start = start;
 */
-
+/*
 //採用將伺服器 "傳遞" 給內容的方式。 從實踐角度來說，就是將response物件（從伺服器的回呼(callback)函數onRequest()取得）透過請求路由傳遞給請求處理程序
 var http = require("http");
 var url = require("url");
@@ -155,6 +155,36 @@ function start(route, handle) {
     console.log("Request for " + pathname + " received.");
 
     route(handle, pathname, response);
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
+}
+
+exports.start = start;
+*/
+//實現思路就是： 將data和end事件的回呼(callback)函數直接放在伺服器中，在data事件回呼(callback)中收集所有的POST資料，當接收到所有資料，觸發end事件後，其回呼(callback)函數執行請求路由，並將資料傳遞給它，然後，請求路由再將該資料傳遞給請求處理程序。
+var http = require("http");
+var url = require("url");
+
+function start(route, handle) {
+  function onRequest(request, response) {
+    var postData = "";
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
+
+    request.setEncoding("utf8");
+
+    request.addListener("data", function(postDataChunk) {
+      postData += postDataChunk;
+      console.log("Received POST data chunk '"+
+      postDataChunk + "'.");
+    });
+
+    request.addListener("end", function() {
+      route(handle, pathname, response, postData);
+    });
+
   }
 
   http.createServer(onRequest).listen(8888);
