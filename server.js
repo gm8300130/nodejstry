@@ -100,7 +100,7 @@ function start(route) {
 
 exports.start = start;
 */
-
+/* 路由範例2 依路徑變更位置
 var http = require("http");
 var url = require("url");
 
@@ -113,6 +113,27 @@ function start(route, handle) {
 
     response.writeHead(200, {"Content-Type": "text/plain"});
     response.write("Hello World route");
+    response.end();
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
+}
+
+exports.start = start;
+*/
+
+var http = require("http");
+var url = require("url");
+
+function start(route, handle) {
+  function onRequest(request, response) {
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
+
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    var content = route(handle, pathname)
+    response.write(content);
     response.end();
   }
 
