@@ -12,6 +12,8 @@ function upload() {
 exports.start = start;
 exports.upload = upload;
 */
+/* Blocking方式 缺點: 它Blocking了所有其他的處理工作
+這顯然是個問題，因為Node一向是這樣來標榜自己的： "在node中除了程式碼，所有一切都是並行執行的" 。
 
 function start() {
   console.log("Request handler 'start' was called.");
@@ -23,6 +25,29 @@ function start() {
 
   sleep(10000);
   return "Hello Start";
+}
+
+function upload() {
+  console.log("Request handler 'upload' was called.");
+  return "Hello Upload";
+}
+
+exports.start = start;
+exports.upload = upload;
+*/
+
+//錯誤的使用Non-Blocking操作的方式
+var exec = require("child_process").exec;
+
+function start() {
+  console.log("Request handler 'start' was called.");
+  var content = "empty";
+
+  exec("ls -lah", function (error, stdout, stderr) {
+    content = stdout;
+  });
+
+  return content;
 }
 
 function upload() {
