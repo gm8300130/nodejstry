@@ -123,6 +123,7 @@ function start(route, handle) {
 exports.start = start;
 */
 
+//用return方式，當未來有請求處理程序需要進行Non-Blocking的操作的時候，我們的應用就 "掛" 了。
 var http = require("http");
 var url = require("url");
 
