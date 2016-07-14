@@ -345,12 +345,12 @@ function start(response) {
 function upload(response, request) {
   console.log("Request handler 'upload' was called.");
 
-  var form = new formidable.IncomingForm();
+  var form = new formidable.IncomingForm(); // 建立圖片模組
   form.uploadDir="/nodejstry/tmp"; //在windows上用fs.renameSync()从c盘复制文件到其它盘会报错，解决方法可以在var form = new formidable.IncomingForm();下面加上 form.uploadDir=“tmp”;设定下文件初始存放路径。
   console.log("about to parse");
   form.parse(request, function(error, fields, files) {
     console.log("parsing done");
-    fs.renameSync(files.upload.path, "/nodejstry/tmp/test1.png");
+    fs.renameSync(files.upload.path, "/nodejstry/tmp/test1.png");// renameSync 檔案重新命名
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write("received image:<br/>");
     response.write("<img src='/show' />");
