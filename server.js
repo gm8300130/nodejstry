@@ -208,7 +208,7 @@ function start(route, handle) {
   }
   
   //使用 createServer 建立web服務
-  http.createServer(onRequest).listen(8888); 
+  http.createServer(onRequest).listen(8888); //監聽的port
   console.log("Server has started.");
 }
 
