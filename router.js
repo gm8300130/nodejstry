@@ -53,7 +53,7 @@ function route(handle, pathname, response, postData) {
 exports.route = route;
 */
 
-//傳遞request物件
+//傳遞request物件,此為路由函式
 function route(handle, pathname, response, request) {
   console.log("About to route a request for " + pathname);
   if (typeof handle[pathname] === 'function') {

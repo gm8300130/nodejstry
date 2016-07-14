@@ -316,20 +316,20 @@ exports.show = show;
 */
 
 //處理檔案上傳以及重命名的操作放到一起
-var querystring = require("querystring"),
-    fs = require("fs"),
-    formidable = require("formidable");
+var querystring = require("querystring"),//查詢字串模組
+    fs = require("fs"),//使用file模組
+    formidable = require("formidable");//圖片模組
 
 function start(response) {
   console.log("Request handler 'start' was called.");
-
+  //建立Html
   var body = '<html>'+
     '<head>'+
     '<meta http-equiv="Content-Type" content="text/html; '+
     'charset=UTF-8" />'+
     '</head>'+
     '<body>'+
-    '<form action="/upload" enctype="multipart/form-data" '+
+    '<form action="/upload" enctype="multipart/form-data" '+ //檔案上傳form 需要  enctype="multipart/form-data"
     'method="post">'+
     '<input type="file" name="upload" multiple="multiple">'+
     '<input type="submit" value="Upload file" />'+
