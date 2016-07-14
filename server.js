@@ -214,3 +214,17 @@ function start(route, handle) {
 
 //輸出 start 函式
 exports.start = start;
+
+
+//git 合併 時 要輸入註解  (git merge)
+/**
+ 
+You're in the text editor, vim! It's a modal text editor, so you would need to:
+
+Press i to enter insert mode. //鍵入 i 進入編輯模式
+Now you can type your message, as if you were in a normal (non-modal) text editor.// 輸入要顯示的訊息
+Press esc to go back to command mode. //鍵入ESC離開編輯模式
+Then type :w followed by enter to save. // :w 保存
+Finally :q followed by enter to quit. // :q 離開
+
+ **/
