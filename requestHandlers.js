@@ -353,20 +353,20 @@ function upload(response, request) {
     fs.renameSync(files.upload.path, "/nodejstry/tmp/test1.png");// renameSync 檔案重新命名
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write("received image:<br/>");
-    response.write("<img src='/show' />");
+    response.write("<img src='/show' />");//顯示圖片
     response.end();
   });
 }
 
 function show(response) {
   console.log("Request handler 'show' was called.");
-  fs.readFile("/nodejstry/tmp/test1.png", "binary", function(error, file) {
+  fs.readFile("/nodejstry/tmp/test1.png", "binary", function(error, file) {//readFile 讀取圖片路徑
     if(error) {
       response.writeHead(500, {"Content-Type": "text/plain"});
       response.write(error + "\n");
       response.end();
     } else {
-      response.writeHead(200, {"Content-Type": "image/png"});
+      response.writeHead(200, {"Content-Type": "image/png"});//限定PNG
       response.write(file, "binary");
       response.end();
     }
